@@ -1,0 +1,134 @@
+﻿@model Horeca.BusinessLayer.Models.IdentificationModel
+@using Horeca.CrossCutting.Enumerations
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>IdentificationModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+                @*<div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>*@
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <select asp-for="Type" asp-items="Html.GetEnumSelectList<TypeEstablishment>()" class="form-control"></select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+
+                <div class"from-group">
+                    <label class="control-label">Country</label>
+                    <select class="form-control" id="vatRates" onselect="getCodeCountry()"></select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">VAT Number</label>
+                    <input class="form-control" id="vatCodeCountry" style="text-align:center" size="2" readonly />
+                    <input class="form-control" id="vatNumber" onchange="checkVatNumber(this.value)" />
+                    <span asp-validation-for="VatNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label" id="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EmailAddress" class="control-label"></label>
+                    <input asp-for="EmailAddress" class="form-control" />
+                    <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    (function getCodeCountries()
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://apilayer.net/api/rate_list?access_key=2ec7c36c3472ca712b4b82461e58eca4", true);
+
+        xhr.addEventListener("readystatechange", function ()
+        {
+            if (xhr.readyState == 4 && xhr.status == 200)
+            {
+                var response = JSON.parse(xhr.responseText);
+                var keys = Object.keys(response.rates);
+                var count = keys.length;
+
+                for (var i = 0; i < count; i++)
+                {
+                    var x = document.getElementById("vatRates");
+                    var option = document.createElement("option");
+                    option.value = keys[i];
+                    option.text = response.rates[keys[i]].country_name;
+                    x.add(option);
+                }
+            }
+        });
+
+        x.selectedIndex = -1;
+        document.getElementById('vatCodeCountry').value = "";
+        document.getElementById('vatNumber').value = "";
+
+        xhr.send();
+    })();
+
+    function getVatCodeCountry()
+    {
+        var index = document.getElementById("vatRates").selectedIndex;
+        var option = document.getElementById("vatRates").options[index].value;
+        document.getElementById("vatCodeCountry").value = option;
+    };
+
+    function checkVatNumber(content)
+    {
+        var getCodeCountry = document.getElementById("vatCodeCountry").value;
+        var vatNumber = getCodeCountry + content;
+        var xhr = new XMLHttpRequest();
+        xhr.open = ("GET", 'http://apilayer.net/api/validate?2ec7c36c3472ca712b4b82461e58eca4&vat_number=' + vatNumber, true);
+        xhr.addEventListener('readystatechange', function ()
+        {
+            if (xhr.readyState == 4 && xhr.status == 200)
+            {
+                var response = JSON.parse(xhr.responseText);
+                if (response.valid)
+                {
+                    document.getElementById("Name").value = response.company_name;
+                    @Model.VatNumber = response.query;
+                    //GetMap(response.company_address)
+                }
+            }
+        });
+
+        xhr.send();
+    };
+</script>
+

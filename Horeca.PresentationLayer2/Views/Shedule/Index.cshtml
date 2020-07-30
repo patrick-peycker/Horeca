@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Horeca.BusinessLayer.Models.SheduleModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartAM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndAM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartPM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndPM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InformationId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartAM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndAM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartPM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndPM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InformationId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

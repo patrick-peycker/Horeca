@@ -1,0 +1,156 @@
+﻿@model Horeca.BusinessLayer.Models.IdentificationModel
+@using Horeca.CrossCutting.Enumerations
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form asp-action="Create">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @*<div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>*@
+
+    <div class="form-group">
+        <label asp-for="Type" class="control-label"></label>
+        <select asp-for="Type" asp-items="Html.GetEnumSelectList<TypeEstablishment>()" class="form-control"></select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+
+    <div class="from-group">
+        <label class="control-label">Country</label>
+        <select class="form-control" id="vatRates" onchange="getVatCodeCountry()"></select>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">VAT Number</label>
+        <input class="form-control" id="vatCodeCountry" style="text-align:center" size="2" readonly />
+        <input class="form-control" id="vatNumber" onchange="checkVatNumber()" />
+        <span asp-validation-for="VatNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" id="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmailAddress" class="control-label"></label>
+        <input asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="IsValidated" /> @Html.DisplayNameFor(model => model.IsValidated)
+        </label>
+    </div>
+
+    @*<div class="form-group">
+            <label asp-for="Logo" class="control-label"></label>
+            <input asp-for="Logo" class="form-control" />
+            <span asp-validation-for="Logo" class="text-danger"></span>
+        </div>*@
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    (function getCodeCountries()
+    {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://apilayer.net/api/rate_list?access_key=2ec7c36c3472ca712b4b82461e58eca4", true);
+
+        xhr.addEventListener("readystatechange", function ()
+        {
+            if (xhr.readyState == 4 && xhr.status == 200)
+            {
+                var response = JSON.parse(xhr.responseText);
+                var keys = Object.keys(response.rates);
+                var count = keys.length;
+
+                for (var i = 0; i < count; i++)
+                {
+                    var x = document.getElementById("vatRates");
+                    var option = document.createElement("option");
+                    option.value = keys[i];
+                    option.text = response.rates[keys[i]].country_name;
+                    x.add(option);
+                }
+            }
+        });
+
+        xhr.send(null);
+    })();
+
+    function getVatCodeCountry()
+    {
+        var index = document.getElementById("vatRates").selectedIndex;
+        var option = document.getElementById("vatRates").options[index].value;
+        document.getElementById("vatCodeCountry").value = option;
+    };
+
+    function checkVatNumber()
+    {
+        var codeCountry = document.getElementById("vatCodeCountry").value;
+        var vatNumber = document.getElementById("vatNumber").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://apilayer.net/api/validate?access_key=2ec7c36c3472ca712b4b82461e58eca4&vat_number=" + codeCountry + vatNumber, true);
+
+        xhr.addEventListener("readystatechange", function ()
+        {
+            if (xhr.readyState == 4 && xhr.status == 200)
+            {
+                var response = JSON.parse(xhr.responseText);
+                if (response.valid)
+                {
+                    document.getElementById("Name").value = response.company_name;
+                }
+            }
+        });
+
+        InitMap();
+
+        xhr.send(null);
+    };
+</script>
+
+<script>
+    function InitMap()
+    {
+        var x = document.createElement("div");
+        x.id = "map";
+        var uluru = { lat: -25.344, lng: 131.036 };
+        var map = new google.maps.Map(document.getElementById('map'), { zoom: 15, center: uluru });
+        var marker = new google.maps.Marker({ position: uluru, map: map });
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyOOICF2TzMxORBOl6cdZNxBI8DDDFwSE&callback=initMap">
+</script>

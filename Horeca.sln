@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horeca.DataAccessLayer", "Horeca.DataAccessLayer\Horeca.DataAccessLayer.csproj", "{BBC40F28-3442-4F07-9423-20E583D55C25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horeca.CrossCutting", "Horeca.CrossCutting\Horeca.CrossCutting.csproj", "{13CEC5FE-1960-42CC-ADC7-F82CB055B7D8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horeca.BusinessLayer", "Horeca.BusinessLayer\Horeca.BusinessLayer.csproj", "{596A9C41-8342-4CDB-8789-5F086C2970C2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{13CEC5FE-1960-42CC-ADC7-F82CB055B7D8} = {13CEC5FE-1960-42CC-ADC7-F82CB055B7D8}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horeca.IdentityServer", "Horeca.IdentityServer\Horeca.IdentityServer.csproj", "{B6471B12-13B5-4C3A-A75A-CA28AB0A4547}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horeca.PresentationLayer", "Horeca.PresentationLayer2\Horeca.PresentationLayer.csproj", "{7DE316A1-670D-4B36-AFFA-E83C4249556C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Horeca.PresentationLayerBak", "Horeca.PresentationLayer.bak\Horeca.PresentationLayerBak.csproj", "{8783B38A-6953-44FD-BFB9-24984BC83E6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBC40F28-3442-4F07-9423-20E583D55C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC40F28-3442-4F07-9423-20E583D55C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC40F28-3442-4F07-9423-20E583D55C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC40F28-3442-4F07-9423-20E583D55C25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13CEC5FE-1960-42CC-ADC7-F82CB055B7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13CEC5FE-1960-42CC-ADC7-F82CB055B7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13CEC5FE-1960-42CC-ADC7-F82CB055B7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13CEC5FE-1960-42CC-ADC7-F82CB055B7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596A9C41-8342-4CDB-8789-5F086C2970C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596A9C41-8342-4CDB-8789-5F086C2970C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596A9C41-8342-4CDB-8789-5F086C2970C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596A9C41-8342-4CDB-8789-5F086C2970C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6471B12-13B5-4C3A-A75A-CA28AB0A4547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6471B12-13B5-4C3A-A75A-CA28AB0A4547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6471B12-13B5-4C3A-A75A-CA28AB0A4547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6471B12-13B5-4C3A-A75A-CA28AB0A4547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE316A1-670D-4B36-AFFA-E83C4249556C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE316A1-670D-4B36-AFFA-E83C4249556C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE316A1-670D-4B36-AFFA-E83C4249556C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE316A1-670D-4B36-AFFA-E83C4249556C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8783B38A-6953-44FD-BFB9-24984BC83E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8783B38A-6953-44FD-BFB9-24984BC83E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8783B38A-6953-44FD-BFB9-24984BC83E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8783B38A-6953-44FD-BFB9-24984BC83E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E4D0E61-79BC-4D0F-A312-BD05262C0C7F}
+	EndGlobalSection
+EndGlobal

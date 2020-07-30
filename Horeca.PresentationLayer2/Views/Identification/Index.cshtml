@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Horeca.BusinessLayer.Models.IdentificationModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Identifications</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@foreach (var item in Model)
+
+{
+
+    @await Html.PartialAsync("_IdentificationsSummary", item)
+
+}
